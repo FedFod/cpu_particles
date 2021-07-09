@@ -1,0 +1,124 @@
+<jittershader name="fill-flat-quads">
+	<description>Default Shader </description>
+	<param name="position" type="vec3" state="POSITION" />
+	<param name="textureAcazzo" type="int" default="0" />
+	<param name="modelViewProjectionMatrix" type="mat4" state="MODELVIEW_PROJECTION_MATRIX" />
+	<param name="targetsLen" type="int" default="0" />
+	<param name="modelViewMatrix" type="mat4" state="MODELVIEW_MATRIX" />
+	<param name="a_scaleValues"   type="vec2" state="TEXCOORD" />
+	//<param name="color" type="vec4" state="COLOR" />
+	<language name="glsl" version="1.5">
+		<bind param="position" program="vp" />
+		<bind param="modelViewProjectionMatrix" program="gp" />
+		<bind param="textureAcazzo" program="fp" />
+		<bind param="targetsLen" program="gp" />
+		<bind param="modelViewMatrix" program="gp" />
+
+		<bind param="a_scaleValues" program="vp" />
+		//<bind param="color" program="vp" />
+		<program name="vp" type="vertex">
+<![CDATA[
+#version 330 core
+uniform mat4 modelViewProjectionMatrix;
+in vec3 position;
+in vec2 a_scaleValues;
+//in vec4 color;
+
+out jit_PerVertex {
+	flat int vertexID;	
+	flat float scale;
+} jit_out;
+
+void main() {	
+	gl_Position = vec4(position, 1.);	
+	jit_out.vertexID = gl_VertexID;
+
+	jit_out.scale = a_scaleValues.x;
+}
+]]>
+		</program>
+		<program name="gp" vertices_out="4" input_type="points" output_type="triangle_strip" type="geometry">
+<![CDATA[
+#version 330 core
+
+layout (points) in;
+layout (triangle_strip, max_vertices=4) out;
+
+uniform int targetsLen;
+uniform mat4 modelViewMatrix;
+uniform mat4 modelViewProjectionMatrix;
+
+in jit_PerVertex {
+	flat int vertexID;	
+	flat float scale;	
+} jit_in[];
+
+out jit_PerVertex {
+	smooth vec2 TC;	
+};
+
+void main() {
+	
+	float vID = jit_in[0].vertexID / (float(targetsLen));
+	float width = 1.0 / (float(targetsLen));
+
+	float scale = jit_in[0].scale * 0.6;
+
+	vec3 Vx = vec3(	modelViewMatrix[0].x, 
+						modelViewMatrix[1].x, 
+						modelViewMatrix[2].x);
+		
+	vec3 Vy = vec3(	modelViewMatrix[0].y, 
+					modelViewMatrix[1].y, 
+					modelViewMatrix[2].y);
+
+	vec3 UL = (-Vx + Vy)*scale;
+	vec3 UR = (Vx + Vy)*scale;
+	vec3 LR = (Vx - Vy)*scale;
+	vec3 LL = (-Vx - Vy)*scale;
+
+	TC = vec2(vID, 0.);
+	gl_Position = modelViewProjectionMatrix * vec4(gl_in[0].gl_Position.xyz+UL, 1.);
+	EmitVertex();
+	
+	TC = vec2(vID+width, 0.);
+	gl_Position = modelViewProjectionMatrix * vec4(gl_in[0].gl_Position.xyz+UR, 1.);	
+	EmitVertex();
+
+	TC = vec2(vID, 1.);
+	gl_Position = modelViewProjectionMatrix * vec4(gl_in[0].gl_Position.xyz+LL, 1.);
+	EmitVertex();
+	
+	TC = vec2(vID+width, 1.);
+	gl_Position = modelViewProjectionMatrix * vec4(gl_in[0].gl_Position.xyz+LR, 1.);
+	EmitVertex();
+	
+	EndPrimitive();
+
+}
+]]>
+		</program>
+		<program name="fp" type="fragment">
+<![CDATA[
+#version 330 core
+
+uniform sampler2D textureAcazzo;
+
+in jit_PerVertex {
+	smooth vec2 TC;
+} jit_in;
+
+out vec4 color;
+
+void main() {
+	color = texture(textureAcazzo, jit_in.TC);
+
+	// if (length(fract(jit_in.TC)-0.5) >= 0.3) 
+	// {
+	// 	discard;
+	// }
+}	
+]]>
+		</program>
+	</language>
+</jittershader>

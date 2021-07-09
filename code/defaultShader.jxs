@@ -1,0 +1,102 @@
+<jittershader name="fill-flat-points-circle_depth">
+	<description>
+		Particles Default Shader
+	</description>
+
+	<param name="position"      type="vec3" state="POSITION" />
+	<param name="modelViewProjectionMatrix" type="mat4" state="MODELVIEW_PROJECTION_MATRIX" />
+	<param name="color"         type="vec4" state="COLOR" />
+	<param name="attrLifeTime"  type="vec4" state="VERTEX_ATTR0" />
+
+	<param name="texture0"   	type="int" default="0" />
+	<param name="randomSizeTex" type="int" default="1" />
+	<param name="uPointSize" 	type="float" default="14.0" />
+	<param name="uBlendEnabled" type="int" default="0" />
+	<param name="uLinkLifeTimeToSize" type="int" default="0" />
+
+	<language name="glsl" version="1.5">
+
+		<bind param="position" 		program="vp" />
+		<bind param="modelViewProjectionMatrix" program="vp" />
+		<bind param="color"         program="vp" />
+		<bind param="attrLifeTime"         program="vp" />
+
+		<bind param="texture0"   	program="fp" />
+		<bind param="randomSizeTex" program="vp" />
+		<bind param="uPointSize"	program="vp" />
+		<bind param="uBlendEnabled" program="fp" />
+		<bind param="uLinkLifeTimeToSize" program="vp" />
+		
+		<program name="vp" type="vertex">
+			<![CDATA[
+// Preprocessor
+#version 330 core
+
+uniform mat4 modelViewProjectionMatrix;
+uniform float uPointSize;
+uniform int uLinkLifeTimeToSize;
+
+uniform sampler1D randomSizeTex;
+
+attribute vec4 attrLifeTime;
+
+// Attributes
+in vec3 position;
+in vec4 color;
+
+// Output
+out jit_PerVertex {
+	flat vec4 color;
+} jit_out;
+	
+void main() {
+	
+	gl_Position = modelViewProjectionMatrix * vec4(position, 1.);	
+	float randomSize = texture(randomSizeTex, gl_VertexID/1000.).x;
+	float pointSize = (uPointSize / (gl_Position.w == 0.0 ? 0.00001 : gl_Position.w));
+	pointSize *= randomSize;
+	if (bool(uLinkLifeTimeToSize))
+	{
+		pointSize *= (attrLifeTime.x); 
+	}
+	gl_PointSize = pointSize; 
+	
+	jit_out.color = color;	
+}
+
+
+]]>
+		</program>
+		<program name="fp" type="fragment">
+			<![CDATA[
+#version 330 core
+
+in jit_PerVertex {
+	flat vec4 color;
+} jit_in;
+
+out vec4 color;
+
+uniform sampler2D texture0;
+uniform int uBlendEnabled;
+
+void main() {
+	color = jit_in.color;
+
+	vec4 textureColor = texture(texture0, gl_PointCoord);
+
+	if (bool(uBlendEnabled))
+	{
+		if(textureColor.a <= 0.01) 
+		{
+			discard;
+		}
+	}
+	
+	color *= textureColor;
+}	
+
+]]>
+		</program>
+	</language>
+</jittershader>
