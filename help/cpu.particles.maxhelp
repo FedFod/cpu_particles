@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 450.0, 151.0, 927.0, 608.0 ],
+		"rect" : [ 668.0, -1065.0, 929.0, 610.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -50,10 +50,11 @@
 					"lockeddragscroll" : 0,
 					"maxclass" : "bpatcher",
 					"name" : "cpu.particles.maxpat",
-					"numinlets" : 1,
-					"numoutlets" : 0,
+					"numinlets" : 2,
+					"numoutlets" : 3,
 					"offset" : [ 0.0, 0.0 ],
-					"patching_rect" : [ 81.352926154931083, 267.0, 407.0, 224.0 ],
+					"outlettype" : [ "jit_matrix", "jit_matrix", "jit_matrix" ],
+					"patching_rect" : [ 91.16666316986084, 256.0, 407.0, 224.0 ],
 					"varname" : "cpu.particles",
 					"viewvisibility" : 1
 				}
@@ -396,7 +397,7 @@
 			"obj-2::obj-101" : [ "live.text[2]", "live.text", 0 ],
 			"obj-2::obj-18::obj-64::obj-12" : [ "live.text[3]", "live.text[1]", 0 ],
 			"obj-2::obj-18::obj-64::obj-84" : [ "live.text[1]", "live.text[1]", 0 ],
-			"obj-2::obj-87" : [ "live.text", "live.text", 0 ],
+			"obj-2::obj-97::obj-87" : [ "live.text", "live.text", 0 ],
 			"parameterbanks" : 			{
 
 			}
@@ -417,36 +418,25 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "cpu.particles.maxpat",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/Federico_Abstractions/Particles_Abstraction",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "tables_filling_functions.maxpat",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/Federico_Abstractions/Particles_Abstraction",
-				"patcherrelativepath" : ".",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "particles.json",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/Federico_Abstractions/Particles_Abstraction",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Targets_Abstraction.maxpat",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/Federico_Abstractions/Particles_Abstraction",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "rchoosef.maxpat",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/Federico_Abstractions/Particles_Abstraction",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
