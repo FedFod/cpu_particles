@@ -88,7 +88,6 @@ uniform int uBlendEnabled;
 
 void main() {
 	color = jit_in.color;
-	color.a = 1.0;
 
 	vec4 textureColor = texture(texture0, gl_PointCoord);
 

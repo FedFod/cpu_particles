@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ -482.0, -1216.0, 1854.0, 931.0 ],
+		"rect" : [ -351.0, -1253.0, 1059.0, 931.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,18 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 547.0, 233.0, 153.0, 22.0 ],
+					"text" : "jit.gl.light @ambient 1 1 1 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -56,7 +68,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 59.0, 107.0, 640.0, 480.0 ],
+						"rect" : [ 616.0, -1159.0, 642.0, 482.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -156,7 +168,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_matrix", "" ],
 									"patching_rect" : [ 50.0, 243.0, 350.0, 22.0 ],
-									"text" : "jit.mo.func @function perlin @scale 1 @phase 0.5 @speed 0.03"
+									"text" : "jit.mo.func @function perlin @scale 1 @phase 0.5 @speed 0.01"
 								}
 
 							}
@@ -291,7 +303,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 59.0, 107.0, 640.0, 480.0 ],
+						"rect" : [ -620.0, -1091.0, 642.0, 482.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -391,7 +403,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_matrix", "" ],
 									"patching_rect" : [ 50.0, 243.0, 350.0, 22.0 ],
-									"text" : "jit.mo.func @function perlin @scale 1 @phase 0.5 @speed 0.03"
+									"text" : "jit.mo.func @function perlin @scale 1 @phase 0.5 @speed 0.01"
 								}
 
 							}
