@@ -1,0 +1,43 @@
+autowatch = 1;
+
+var saveDict = new Dict();
+
+var Render = {
+    RenderUsing: 0,
+    BlendMode: "alphablend", 
+    EnableBlend: 1,
+    Color_StartColor: [1,1,1,1],
+    Color_EndColor:   [0,0,0,1],
+    Color_Brightness: 1.0, 
+    Color_Transparency: 1.0,
+    Sprite_Function: "Smoothstep",
+    Sprite_InnerOuterEdge: [1, 0.8],
+    Sprite_InnerColor: [1,1,1,1],
+    Sprite_OuterColor: [0,0,0,0],
+    Mesh_Shape: "sphere",
+    Size_MinMax: [2., 3.],
+    Size_StartEnd: [1, 0]
+}
+
+var Modules = { 
+    RenderModule: Render
+}
+
+function setRenderParam() {
+    var args = arrayfromargs(arguments);
+    var paramName = args[0];
+    var value = args.slice(1);
+    if (value.length == 1) value = value[0];
+    Render[paramName] = value;
+}
+
+function saveDataIntoDict() {
+    saveDict.parse(JSON.stringify(Modules));
+    outlet(0, saveDict.name)
+}
+//saveDataIntoDict.local = 1;
+
+function writeDict(path) {
+    saveDataIntoDict();
+    saveDict.export_json(path);
+}

@@ -548,7 +548,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 59.0, 107.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -913,6 +913,12 @@
 				"name" : "rchoosef.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/patchers",
 				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "particles_state.js",
+				"bootpath" : "~/Documents/Max 8/Packages/cpu_particles/javascript",
+				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
