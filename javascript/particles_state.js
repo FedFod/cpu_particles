@@ -1,8 +1,11 @@
 autowatch = 1;
 
+var patchPrefix = "";
 var saveDict = new Dict("saveDict_Particles_CPU");
 
-
+function setPatchPrefix(pref) {
+    patchPrefix = pref+"_";
+}
 
 var Modules = { 
     RenderModule: {
@@ -19,7 +22,8 @@ var Modules = {
         Sprite_OuterColor: [0,0,0,1],
         Mesh_Shape: "sphere",
         Size_MinMax: [2., 3.],
-        Size_StartEnd: [1, 0]
+        Size_StartEnd: [1, 0],
+        Size_Link: "life_time"
     }
 }
 
@@ -32,11 +36,13 @@ function setRenderParam() {
 }
 
 function outputDict() {
-    outlet(0, "dictionary "+saveDict.name);
-    outlet(0, "get RenderModule");
-    outlet(0, "bang");
+    for (var module in Modules) {
+        for (var param in Modules[module]) {
+            messnamed(patchPrefix+param, Modules[module][param])
+        }
+    }
 }
-//saveDataIntoDict.local = 1;
+outputDict.local = 1;
 
 function write(path) {
     saveDict.parse(JSON.stringify(Modules));
@@ -48,3 +54,4 @@ function read(path) {
     Modules = JSON.parse(saveDict.stringify());
     outputDict();
 }
+

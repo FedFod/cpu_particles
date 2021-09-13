@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ -637.0, -1222.0, 1059.0, 831.0 ],
+		"rect" : [ -620.0, -1064.0, 1059.0, 838.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -44,7 +44,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 759.0, 281.0, 63.0, 20.0 ],
+					"patching_rect" : [ 759.0, 283.0, 63.0, 20.0 ],
 					"text" : "xy coords"
 				}
 
